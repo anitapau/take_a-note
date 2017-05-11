@@ -19,21 +19,22 @@ public class WebServicesLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_services_login);
     }
 
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_logout, menu);
         return true;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences sharedPreferences =
-                getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
-                .commit();
-        Intent i = new Intent(this, SignInActivity.class);
-        startActivity(i);
-        finish();
-        return true;
-    }
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) {
+       SharedPreferences sharedPreferences =
+               getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+       sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
+               .commit();
+       Intent i = new Intent(this, SignInActivity.class);
+       startActivity(i);
+       finish();
+       return true;
+   }
+ 
 }
