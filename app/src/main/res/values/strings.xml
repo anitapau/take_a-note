@@ -8,7 +8,9 @@
     <string name="LOGIN_PREFS">anitapau.uw.tacoma.take_a_note.PREFS</string>
     <string name="LOGGEDIN">loggedin</string>
     <string name="newNote">New</string>
+    <string name="take_note_hint">Write a note</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_note_taking">NoteTakingActivity</string>
+    <string name="save">Save</string>
+    <string name="title_activity_web_login">Take-a-note</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -37,7 +37,7 @@ public class LoginFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment LoginFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
@@ -97,13 +97,7 @@ public class LoginFragment extends Fragment {
                     userIdText.requestFocus();
                     return;
                 }
-                /** if (!userId.contains("@")) {
-                 Toast.makeText(v.getContext(), "Enter a valid email address"
-                 , Toast.LENGTH_SHORT)
-                 .show();
-                 userIdText.requestFocus();
-                 return;
-                 }**/
+
 
                 if (TextUtils.isEmpty(pwd)) {
                     Toast.makeText(v.getContext(), "Enter password"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.tacoma.uw.ahanag22.take_a_note_on_android">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -19,7 +20,10 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".NoteTakingActivity" />
-        <activity android:name=".WebServicesLoginActivity"></activity>
+        <activity
+            android:name=".WebLoginActivity"
+            android:label="@string/title_activity_web_login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // b.setOnClickListener(new View.OnClickListener() {
                 //@Override
                 //public void onClick(View v) {
-                Intent i = new Intent(RegisterActivity.this, WebServicesLoginActivity.class);
+                Intent i = new Intent(RegisterActivity.this, WebLoginActivity.class);
                 startActivity(i);
                 finish();
                 // }
@@ -81,25 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        /** mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS)
-         , Context.MODE_PRIVATE);
-         if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
-         getSupportFragmentManager().beginTransaction()
-         .add(R.id.fragment_container, new LoginFragment())
-         .commit();
-         } else {
-         Intent i = new Intent(this, WebServicesLoginActivity.class);
-         startActivity(i);
-         finish();
-         }**/
+
         Button b = (Button)findViewById(R.id.login_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Intent i = new Intent(RegisterActivity.this, WebServicesLoginActivity.class);
-                //startActivity(i);
-                //finish();
 
                 WebloginTask loginTask = new WebloginTask();
                 EditText userid = (EditText)findViewById(R.id.user_edit);
@@ -113,20 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    /** @Override
-    public void login(String userId, String pwd) {
-    mSharedPreferences
-    .edit()
-    .putBoolean(getString(R.string.LOGGEDIN), true)
-    .commit();
 
-    WebloginTask loginTask = new WebloginTask();
-    String finalUrl = URL_PART1+userId+URL_PART2+pwd;
-    loginTask.execute(finalUrl);
-    }**/
-    // @Override
-    //public void onFragmentInteraction(Uri uri) {
-
-    //}
 
 }

@@ -16,21 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener, LoginFragment.OnFragmentInteractionListener{
 
@@ -76,7 +61,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                 return;
             }
             else if(result.contains("success")) {
-                Intent i = new Intent(SignInActivity.this, WebServicesLoginActivity.class);
+                Intent i = new Intent(SignInActivity.this, WebLoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -94,7 +79,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                     .add(R.id.fragment_container, new LoginFragment())
                     .commit();
         } else {
-            Intent i = new Intent(this, WebServicesLoginActivity.class);
+            Intent i = new Intent(this, WebLoginActivity.class);
             startActivity(i);
             finish();
         }
