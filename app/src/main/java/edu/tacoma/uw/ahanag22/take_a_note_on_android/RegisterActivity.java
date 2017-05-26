@@ -21,7 +21,7 @@ import java.net.URL;
 public class RegisterActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPreferences;
-    private String URL_PART1 = "http://cssgate.insttech.washington.edu/~ahanag22/ahana.php?userid=";
+    private String URL_PART1 = "http://takenote.x10host.com/ahana.php?userid=";
     private String URL_PART2 = "&password=";
     private String URL_PART3 = "&email=";
 

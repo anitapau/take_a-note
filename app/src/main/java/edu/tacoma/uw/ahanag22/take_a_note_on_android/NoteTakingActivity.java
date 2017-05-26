@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.OnFragmentInteractionListener{
-    private String URL_PART1 = "http://cssgate.insttech.washington.edu/~ahanag22/savingNote.php?note=";
+    private String URL_PART1 = "http://takenote.x10host.com/savingNote.php?note=";
     private String URL_PART3 = "&note=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

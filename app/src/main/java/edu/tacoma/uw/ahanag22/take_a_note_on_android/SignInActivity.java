@@ -20,7 +20,7 @@ import java.net.URL;
 public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener, LoginFragment.OnFragmentInteractionListener{
 
     private SharedPreferences mSharedPreferences;
-    private String URL_PART1 = "http://cssgate.insttech.washington.edu/~ahanag22/login.php?userid=";
+    private String URL_PART1 = "http://takenote.x10host.com/login.php?userid=";
     private String URL_PART2 = "&password=";
 
     public class WebloginTask extends AsyncTask<String, Void, String> {
