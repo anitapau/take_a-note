@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteFragment.OnListFragmentInteractionListener;
-import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent.NoteItem;
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent.*;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link NoteItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  *
  */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<NoteItem> mValues;
+    private final List<NoteContent> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyNoteRecyclerViewAdapter(List<NoteItem> items, OnListFragmentInteractionListener listener) {
+    public MyNoteRecyclerViewAdapter(List<NoteContent> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +36,8 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mContentView.setText(mValues.get(position).getNoteDesc());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public NoteItem mItem;
+        public NoteContent mItem;
 
 
         public ViewHolder(View view) {

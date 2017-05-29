@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteTakingActivity"
-    android:weightSum="1">
-    <EditText
-        android:id="@+id/takeNote"
+
+    tools:context="edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteTakingActivity">
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/take_note_hint"
-        android:layout_weight="0.81" />
-    <Button
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_web_login" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/login_button"
-        android:layout_gravity="end"
-        android:text="@string/save" />
-</LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add"/>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
 

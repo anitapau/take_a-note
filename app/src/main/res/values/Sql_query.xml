@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="CREATE_NOTECONTENT_SQL">
+    CREATE TABLE IF NOT EXISTS savenote
+    (id TEXT, userid VARCHAR(25),
+    longDesc TEXT, PRIMARY KEY(id, userid))
+</string>
+
+    <string name="DROP_NOTECONTENT_SQL">
+    DROP TABLE IF EXISTS savenote
+</string>
+
+</resources>

@@ -20,33 +20,22 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.OnFragmentInteractionListener{
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteDetailFragment.OnFragmentInteractionListener;
+
+public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.OnFragmentInteractionListener, AddNoteFragment.NoteAddListner, NoteFragment.OnListFragmentInteractionListener {
     private String URL_PART1 = "http://takenote.x10host.com/savingNote.php?note=";
     private String URL_PART3 = "&note=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_taking);
-        if (findViewById(R.id.note_container)!= null) {
+        if (findViewById(R.id.fragment_container)!= null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new AddNoteFragment())
                     .commit();
         }
-
-
-
-        Button b = (Button)findViewById(R.id.login_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NoteSavingTask t = new NoteSavingTask();
-                EditText note = (EditText) findViewById(R.id.takeNote);
-                String finalUrl = URL_PART1+note.getText();
-                t.execute(finalUrl);
-            }
-
-        });
-
 
     }
 
@@ -70,9 +59,39 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
         return true;
     }
 
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void addNote(String url) {
+
+        NoteSavingTask task = new NoteSavingTask();
+        task.execute(new String[]{url.toString()});
+
+        // Takes you back to the previous fragment by popping the current fragment out.
+        getSupportFragmentManager().popBackStackImmediate();
+
+
+
+
+
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(NoteContent item) {
+        NoteDetailFragment courseDetailFragment = new NoteDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, item);
+        courseDetailFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, courseDetailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 

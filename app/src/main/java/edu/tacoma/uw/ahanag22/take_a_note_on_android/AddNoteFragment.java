@@ -3,10 +3,17 @@ package edu.tacoma.uw.ahanag22.take_a_note_on_android;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 
 /**
@@ -27,7 +34,15 @@ public class AddNoteFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+
+    private final static String COURSE_ADD_URL
+            = "http://takenote.x10host.com/addNote.php?";
+
+
+    private EditText mNoteId;
+    private EditText mNoteDesc;
+    private String mUserId;
+    private NoteAddListner mListener;
 
     public AddNoteFragment() {
 
@@ -64,33 +79,59 @@ public class AddNoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_note, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_note, container, false);
+
+        mNoteId = (EditText) v.findViewById(R.id.add_note_id);
+        mUserId = SignInActivity.muserId;
+        mNoteDesc = (EditText) v.findViewById(R.id.add_note_desc);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton)
+                getActivity().findViewById(R.id.fab);
+        floatingActionButton.hide();
+
+        Button addCourseButton = (Button) v.findViewById(R.id.save_button);
+        addCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = buildNoteUrl(v);
+                mListener.addNote(url);
+            }
+        });
+
+
+        return v;
+
+
+
+
+
+
+
     }
+    private String buildNoteUrl(View v) {
 
+        StringBuilder sb = new StringBuilder(COURSE_ADD_URL);
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        try {
+
+            String courseId = mNoteId.getText().toString();
+            sb.append("id=");
+            sb.append(courseId);
+            String courseShortDesc = mNoteDesc.getText().toString();
+            String userId = mUserId;
+            sb.append("&userid=");
+            sb.append(userId);
+            sb.append("&longDesc=");
+            sb.append(URLEncoder.encode(courseShortDesc, "UTF-8"));
+            Log.i("AddNoteFragment", sb.toString());
+
         }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        catch(Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
         }
+        return sb.toString();
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -102,7 +143,30 @@ public class AddNoteFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-
+        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof NoteAddListner) {
+            mListener = (NoteAddListner) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement CourseAddListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface NoteAddListner {
+        void addNote(String url);
+    }
+
 }

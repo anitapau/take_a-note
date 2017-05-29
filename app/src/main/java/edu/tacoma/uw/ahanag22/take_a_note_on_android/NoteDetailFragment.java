@@ -8,7 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.EditNoteFragment;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
 
@@ -25,7 +28,11 @@ public class NoteDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private TextView mNoteId;
+    private TextView mNoteDesc;
+    public final static String Note_ITEM_SELECTED = "note_selected";
 
+    private NoteContent mNote;
 
     private String mParam1;
     private String mParam2;
@@ -47,40 +54,54 @@ public class NoteDetailFragment extends Fragment {
     public static NoteDetailFragment newInstance(String param1, String param2) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+       // args.putString(ARG_PARAM1, param1);
+        //args.putString(ARG_PARAM2, param2);
+        //fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
-    public static NoteDetailFragment getCourseDetailFragment(
-            NoteContent.NoteItem courseItem) {
-        NoteDetailFragment fragment = new NoteDetailFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(DETAIL_PARAM, courseItem);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static final String DETAIL_PARAM = "detail_param";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_note_detail, container, false);
+        View view =  inflater.inflate(R.layout.fragment_note_detail, container, false);
+        mNoteId = (TextView) view.findViewById(R.id.note_item_id);
+        mNoteDesc = (TextView) view.findViewById(R.id.note_desc);
+        Button editNoteButton = (Button) view.findViewById(R.id.edit_note_button);
+        editNoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditNoteFragment editNoteFragment = new EditNoteFragment();
+                Bundle args = new Bundle();
+                args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, mNote);
+                editNoteFragment.setArguments(args);
+
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, editNoteFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+
         FloatingActionButton floatingActionButton = (FloatingActionButton)
                 getActivity().findViewById(R.id.fab);
         floatingActionButton.show();
-        return v;
+
+        return view;
     }
 
 
@@ -91,16 +112,37 @@ public class NoteDetailFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onStart() {
+        super.onStart();
+
+        // During startup, check if there are arguments passed to the fragment.
+        // onStart is a good place to do this because the layout has already been
+        // applied to the fragment at this point so we can safely call the method
+        // below that sets the article text.
+        Bundle args = getArguments();
+        if (args != null) {
+            // Set article based on argument passed in
+            updateView((NoteContent) args.getSerializable(Note_ITEM_SELECTED));
+        }
+    }
+    public void updateView(NoteContent noteContent) {
+        if (noteContent != null) {
+
+            mNote = noteContent;
+            mNoteId.setText(noteContent.getId());
+            mNoteDesc.setText(noteContent.getNoteDesc());
         }
     }
 
+    @Override
+    public void onDestroyView() {
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton)
+                getActivity().findViewById(R.id.fab);
+        floatingActionButton.hide();
+
+        super.onDestroyView();
+    }
     @Override
     public void onDetach() {
         super.onDetach();

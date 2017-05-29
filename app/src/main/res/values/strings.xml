@@ -11,6 +11,14 @@
     <string name="take_note_hint">Write a note</string>
     <string name="logout">Logout</string>
     <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="write_Note">Write a note</string>
+    <string name="NameOfNote">Name Of File</string>
     <string name="title_activity_web_login">Take-a-note</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="LOGIN_FILE">edu.tacoma.uw.ahanag22.take_a_note_on_android.LOGIN_FILE</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

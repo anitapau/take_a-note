@@ -1,43 +1,39 @@
-package edu.tacoma.uw.ahanag22.take_a_note_on_android;
+package edu.tacoma.uw.ahanag22.take_a_note_on_android.Note;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-
-
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
+ * {@link EditNoteFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link EditNoteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class EditNoteFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private final static String NOTE_EDIT_URL
+            = "http://cssgate.insttech.washington.edu/~wujiep/Android/editCourse.php?";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public LoginFragment() {
-
+    public EditNoteFragment() {
+        // Required empty public constructor
     }
 
     /**
@@ -46,11 +42,11 @@ public class LoginFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
+     * @return A new instance of fragment EditNoteFragment.
      */
-
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    // TODO: Rename and change types and number of parameters
+    public static EditNoteFragment newInstance(String param1, String param2) {
+        EditNoteFragment fragment = new EditNoteFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,66 +61,14 @@ public class LoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
-        final EditText userIdText = (EditText) v.findViewById(R.id.userid_edit);
-        final EditText pwdText = (EditText) v.findViewById(R.id.pwd_edit);
-        Button signInButton = (Button) v.findViewById(R.id.signin_button);
-        Button registerButton = (Button) v.findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), RegisterActivity.class);
-                startActivity(i);
-            }
-        });
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userId = userIdText.getText().toString();
-                SignInActivity.muserId= userId;
-                String pwd = pwdText.getText().toString();
-                if (TextUtils.isEmpty(userId)) {
-                    Toast.makeText(v.getContext(), "Enter userid"
-                            , Toast.LENGTH_SHORT)
-                            .show();
-                    userIdText.requestFocus();
-                    return;
-                }
-
-
-                if (TextUtils.isEmpty(pwd)) {
-                    Toast.makeText(v.getContext(), "Enter password"
-                            , Toast.LENGTH_SHORT)
-                            .show();
-                    pwdText.requestFocus();
-                    return;
-                }
-                if (pwd.length() < 6) {
-                    Toast.makeText(v.getContext()
-                            , "Enter password of at least 6 characters"
-                            , Toast.LENGTH_SHORT)
-                            .show();
-                    pwdText.requestFocus();
-                    return;
-                }
-
-                ((SignInActivity) getActivity()).login(userId, pwd);
-                SignInActivity.muserId= userId;
-            }
-        });
-        return v;
+        return inflater.inflate(R.layout.fragment_edit_note, container, false);
     }
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -164,9 +108,4 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    public interface LoginInteractionListener {
-        public void login(String userId, String pwd);
-    }
-
 }

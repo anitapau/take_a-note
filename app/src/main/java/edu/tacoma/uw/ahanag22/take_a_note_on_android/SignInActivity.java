@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
     private SharedPreferences mSharedPreferences;
     private String URL_PART1 = "http://takenote.x10host.com/login.php?userid=";
     private String URL_PART2 = "&password=";
+    public static String muserId;
 
     public class WebloginTask extends AsyncTask<String, Void, String> {
         @Override
@@ -72,6 +74,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         mSharedPreferences = getSharedPreferences(getString(R.string.LOGIN_PREFS)
                 , Context.MODE_PRIVATE);
         if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
@@ -87,12 +90,14 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
 
     @Override
     public void login(String userId, String pwd) {
+        this.muserId=userId;
         mSharedPreferences
                 .edit()
                 .putBoolean(getString(R.string.LOGGEDIN), true)
                 .commit();
 
         WebloginTask loginTask = new WebloginTask();
+
         String finalUrl = URL_PART1+userId+URL_PART2+pwd;
         loginTask.execute(finalUrl);
     }

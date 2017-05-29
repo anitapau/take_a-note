@@ -1,10 +1,16 @@
 package edu.tacoma.uw.ahanag22.take_a_note_on_android.Note;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.SignInActivity;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -12,80 +18,65 @@ import java.util.Map;
  * <p>
  *
  */
-public class NoteContent {
+public class NoteContent implements Serializable {
+
+    public static final String ID = "id";
+    public static final String NOTE_DESC = "longDesc";
+    public static final String USER_ID = "userid";
+    private String mNoteId;
+    private String mLongDesc;
+    private String mUserId;
+    /**
+     * Constructor to initialize the value
+     * @param id
+     * @param noteDesc
+     */
+    public NoteContent(String id, String userid, String noteDesc) {
+        mNoteId = id;
+        mUserId= userid;
+        mLongDesc = noteDesc;
+    }
+
 
     /**
-     * An array of Note items.
+     * Parses the json string, returns an error message if unsuccessful.
+     * Returns course list if success.
+     * @param noteJson
+     * @return reason or null if successful.
      */
-    public static final List<NoteItem> ITEMS = new ArrayList<NoteItem>();
+    public static String parseNoteJson(String noteJson, List<NoteContent> noteContentList) {
+        String reason = null;
+        if (noteJson != null) {
+            try {
+                JSONArray arr = new JSONArray(noteJson);
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+                    NoteContent noteContent = new NoteContent(obj.getString(NoteContent.ID),obj.getString(NoteContent.USER_ID), obj.getString(NoteContent.NOTE_DESC));
+                    noteContentList.add(noteContent);
+                }
+            } catch (JSONException e) {
+                reason =  "Unable to parse data, Reason: " + e.getMessage();
+            }
 
-    public String getMyNoteDetail() {
-        return myNoteDetail;
-    }
-
-    public void setMyNoteDetail(String myNoteDetail) {
-        this.myNoteDetail = myNoteDetail;
-    }
-
-    public static final String ID = "id", NOTE_DETAIL = "prereqs";
-    public String myNoteDetail;
-
-    /**
-     * A map of note items, by ID.
-     */
-    public static final Map<String, NoteItem> ITEM_MAP = new HashMap<String, NoteItem>();
-
-    private static final int COUNT = 25;
-
-    static {
-        // Add note items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createNoteItem(i));
         }
+        return reason;
     }
 
-    public NoteContent(String myNoteDetail) {
-        this.myNoteDetail = myNoteDetail;
-    }
-    /*
-    adding a note item
-     */
-    private static void addItem(NoteItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-    /*
-    create and returns a note item
-     */
-    private static NoteItem createNoteItem(int position) {
-        return new NoteItem(String.valueOf(position), "Note " + position);
+    public String getId() {
+        return mNoteId;
     }
 
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    public String getNoteDesc() {
+        return mLongDesc;
     }
-
-    /**
-     * A Note Item representing a piece of content.
-     */
-    public static class NoteItem implements Serializable {
-        public final String id;
-        public final String content;
-
-        public NoteItem(String id, String content) {
-            this.id = id;
-            this.content = content;
-        }
-
-        @Override
-        public String toString() {
-            return content;
-        }
+    public String getUserId() {
+        return mUserId;
+    }
+    public void setId(String theNoteId) {
+        this.mNoteId = theNoteId;
+    }
+    public void setUserId(String theUserId) {
+        this.mUserId = theUserId;
     }
 }
 

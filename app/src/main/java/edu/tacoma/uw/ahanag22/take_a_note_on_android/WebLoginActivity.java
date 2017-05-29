@@ -39,7 +39,19 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
 
 
     }
+    @Override
+    public void onListFragmentInteraction(NoteContent item) {
 
+        NoteDetailFragment noteDetailFragment = new NoteDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, item);
+        noteDetailFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.note_container, noteDetailFragment)
+                .addToBackStack(null)
+                .commit();
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_logout, menu);
@@ -57,9 +69,5 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
         return true;
     }
 
-    @Override
-    public void onListFragmentInteraction(NoteContent.NoteItem item) {
-
-    }
 
 }
