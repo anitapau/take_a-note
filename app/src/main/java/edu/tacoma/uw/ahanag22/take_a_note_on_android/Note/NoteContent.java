@@ -32,10 +32,9 @@ public class NoteContent implements Serializable {
      * @param noteDesc
      */
     public NoteContent(String id, String userid, String noteDesc) {
-
-        setId(id);
-        setUserId(userid);
-        setNoteDesc(noteDesc);
+        mUserId = userid;
+        mNoteId = id;
+        mLongDesc = noteDesc;
     }
 
 

@@ -94,7 +94,6 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(v.getContext(), "Enter userid"
                             , Toast.LENGTH_SHORT)
                             .show();
-
                     userIdText.requestFocus();
                     return;
                 }
@@ -117,6 +116,7 @@ public class LoginFragment extends Fragment {
                     pwdText.requestFocus();
                     return;
                 }
+                SignInActivity.muserId= userId;
                 ((SignInActivity) getActivity()).login(userId, pwd);
 
             }

@@ -64,8 +64,7 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
                 getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
                 .commit();
-
-       Intent i = new Intent(this, new SignInActivity().getClass());
+        Intent i = new Intent(this, new SignInActivity().getClass());
         startActivity(i);
         finish();
         return true;

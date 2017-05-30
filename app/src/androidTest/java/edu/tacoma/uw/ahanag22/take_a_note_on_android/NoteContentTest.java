@@ -14,19 +14,19 @@ public class NoteContentTest {
     NoteContent note = new NoteContent("test", "TestEmail@uw.edu", "description");
     @Test
     public void testNoteContentConstructor() {
-        Assert.assertNotNull(new NoteContent("test","mmuppa@uw.edu", "description"));
+        NoteContent n = new NoteContent("test","mmuppa", "description");
+        Assert.assertNotNull(new NoteContent("test","mmuppa", "description"));
+        Assert.assertEquals("test",n.getId());
+        Assert.assertEquals("description",n.getNoteDesc());
+        Assert.assertEquals("mmuppa",n.getUserId());
+
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testBadFileNameInconstructor() {
-        new NoteContent("", "test", "test1@3");
-        //Assert.fail("note created with empty filename");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testBadUseridInconstructor() {
+    public void testBadSetId() {
         // Account testP = new Account("mmuppauw.edu", "test1@3");
-        new NoteContent("test","", "te@3");
+        NoteContent n = new NoteContent("test", "test", "test1@3");
+        n.setUserId("");
        // Assert.fail("userid is not valid");
     }
     @Test(expected = IllegalArgumentException.class)

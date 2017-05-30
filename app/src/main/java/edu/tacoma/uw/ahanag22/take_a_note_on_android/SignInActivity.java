@@ -92,15 +92,16 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
 
     @Override
     public void login(String userId, String pwd) {
-            mSharedPreferences
-                    .edit()
-                    .putBoolean(getString(R.string.LOGGEDIN), true)
-                    .commit();
+        this.muserId=userId;
+        mSharedPreferences
+                .edit()
+                .putBoolean(getString(R.string.LOGGEDIN), true)
+                .commit();
 
-            WebloginTask loginTask = new WebloginTask();
-            this.muserId=userId;
-            String finalUrl = URL_PART1+userId+URL_PART2+pwd;
-            loginTask.execute(finalUrl);
+        WebloginTask loginTask = new WebloginTask();
+        this.muserId=userId;
+        String finalUrl = URL_PART1+userId+URL_PART2+pwd;
+        loginTask.execute(finalUrl);
 
 
     }
