@@ -54,9 +54,9 @@ public class NoteDetailFragment extends Fragment {
     public static NoteDetailFragment newInstance(String param1, String param2) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-       // args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
-        //fragment.setArguments(args);
+       args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 

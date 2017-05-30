@@ -46,9 +46,10 @@ public class NoteContent implements Serializable {
      */
     public static String parseNoteJson(String noteJson, List<NoteContent> noteContentList) {
         String reason = null;
-        if (noteJson != null) {
+        if (noteJson != null && !noteJson.isEmpty()) {
             try {
                 JSONArray arr = new JSONArray(noteJson);
+
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     NoteContent noteContent = new NoteContent(obj.getString(NoteContent.ID),obj.getString(NoteContent.USER_ID), obj.getString(NoteContent.NOTE_DESC));

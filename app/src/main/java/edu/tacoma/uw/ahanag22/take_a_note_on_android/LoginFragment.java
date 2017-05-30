@@ -115,9 +115,9 @@ public class LoginFragment extends Fragment {
                     pwdText.requestFocus();
                     return;
                 }
-
-                ((SignInActivity) getActivity()).login(userId, pwd);
                 SignInActivity.muserId= userId;
+                ((SignInActivity) getActivity()).login(userId, pwd);
+
             }
         });
         return v;

@@ -97,7 +97,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                 .commit();
 
         WebloginTask loginTask = new WebloginTask();
-
+        this.muserId=userId;
         String finalUrl = URL_PART1+userId+URL_PART2+pwd;
         loginTask.execute(finalUrl);
     }

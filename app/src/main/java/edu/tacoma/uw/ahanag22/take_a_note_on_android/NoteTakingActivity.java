@@ -37,6 +37,10 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
                     .commit();
         }
 
+              this.getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .commit();
     }
 
 
@@ -72,12 +76,12 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
         task.execute(new String[]{url.toString()});
 
         // Takes you back to the previous fragment by popping the current fragment out.
-        getSupportFragmentManager().popBackStackImmediate();
 
 
-
-
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new NoteDetailFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
 

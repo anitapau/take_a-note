@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.net.URLEncoder;
 
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.EditNoteFragment;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,11 +71,12 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            //mParam1 = getArguments().getString(ARG_PARAM1);
+//            //mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,19 +98,17 @@ public class AddNoteFragment extends Fragment {
             public void onClick(View v) {
                 String url = buildNoteUrl(v);
                 mListener.addNote(url);
+
+
             }
+
         });
-
-
         return v;
-
-
-
-
-
-
-
     }
+
+    private AddNoteFragment.OnFragmentInteractionListener mListener1;
+
+
     private String buildNoteUrl(View v) {
 
         StringBuilder sb = new StringBuilder(COURSE_ADD_URL);

@@ -24,7 +24,7 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.note_container, new NoteFragment())
                 .commit();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -59,11 +59,12 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         SharedPreferences sharedPreferences =
                 getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
                 .commit();
-        Intent i = new Intent(this, SignInActivity.class);
+        Intent i = new Intent(this, new SignInActivity().getClass());
         startActivity(i);
         finish();
         return true;
