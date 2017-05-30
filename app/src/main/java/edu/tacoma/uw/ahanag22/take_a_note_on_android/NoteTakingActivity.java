@@ -77,11 +77,6 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
 
         // Takes you back to the previous fragment by popping the current fragment out.
 
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new NoteDetailFragment())
-                .addToBackStack(null)
-                .commit();
     }
 
 

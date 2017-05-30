@@ -25,7 +25,7 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
                 .add(R.id.note_container, new NoteFragment())
                 .commit();
        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

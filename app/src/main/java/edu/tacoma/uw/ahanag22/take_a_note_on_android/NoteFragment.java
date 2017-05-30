@@ -241,12 +241,9 @@ public class NoteFragment extends Fragment {
                 // Also, add to the local database
                 for (int i=0; i<mCourseList.size(); i++) {
                     NoteContent course = mCourseList.get(i);
-
                     mCourseDB.insertCourse(course.getId(), SignInActivity.muserId,
                             course.getNoteDesc());
                 }
-
-
                 NoteContent mFirstCourse = mCourseList.get(0);
                 mRecyclerView.setAdapter(new MyNoteRecyclerViewAdapter(mCourseList, mListener));
             }

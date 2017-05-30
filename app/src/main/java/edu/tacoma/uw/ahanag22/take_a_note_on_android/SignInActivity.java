@@ -65,6 +65,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
 
             }
             else if(result.contains("success")) {
+                
                 Intent i = new Intent(SignInActivity.this, WebLoginActivity.class);
                 startActivity(i);
                 finish();
