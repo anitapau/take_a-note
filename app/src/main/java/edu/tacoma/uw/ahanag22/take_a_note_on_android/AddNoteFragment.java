@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,13 @@ public class AddNoteFragment extends Fragment {
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(TextUtils.isEmpty(mNoteId.getText().toString())) {
+                    Toast.makeText(v.getContext(), "Enter filename"
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                    mNoteId.requestFocus();
+                    return;
+                }
                 String url = buildNoteUrl(v);
                 mListener.addNote(url);
 
