@@ -107,7 +107,6 @@ public class AddNoteFragment extends Fragment {
                 String url = buildNoteUrl(v);
                 mListener.addNote(url);
 
-
             }
 
         });

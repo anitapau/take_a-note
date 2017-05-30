@@ -58,9 +58,11 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.contains("fail")) {
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
+                Toast.makeText(getApplicationContext(), "unable to login either the userid or password is wrong", Toast.LENGTH_LONG)
                         .show();
+
                 return;
+
             }
             else if(result.contains("success")) {
                 Intent i = new Intent(SignInActivity.this, WebLoginActivity.class);
@@ -90,16 +92,17 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
 
     @Override
     public void login(String userId, String pwd) {
-        this.muserId=userId;
-        mSharedPreferences
-                .edit()
-                .putBoolean(getString(R.string.LOGGEDIN), true)
-                .commit();
+            mSharedPreferences
+                    .edit()
+                    .putBoolean(getString(R.string.LOGGEDIN), true)
+                    .commit();
 
-        WebloginTask loginTask = new WebloginTask();
-        this.muserId=userId;
-        String finalUrl = URL_PART1+userId+URL_PART2+pwd;
-        loginTask.execute(finalUrl);
+            WebloginTask loginTask = new WebloginTask();
+            this.muserId=userId;
+            String finalUrl = URL_PART1+userId+URL_PART2+pwd;
+            loginTask.execute(finalUrl);
+
+
     }
 
     @Override

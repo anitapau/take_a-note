@@ -32,9 +32,10 @@ public class NoteContent implements Serializable {
      * @param noteDesc
      */
     public NoteContent(String id, String userid, String noteDesc) {
-        mNoteId = id;
-        mUserId= userid;
-        mLongDesc = noteDesc;
+
+        setId(id);
+        setUserId(userid);
+        setNoteDesc(noteDesc);
     }
 
 
@@ -74,10 +75,20 @@ public class NoteContent implements Serializable {
         return mUserId;
     }
     public void setId(String theNoteId) {
+        if(theNoteId.isEmpty()) {
+            throw new IllegalArgumentException("file name is not given");
+        }
         this.mNoteId = theNoteId;
     }
-    public void setUserId(String theUserId) {
+    public void setUserId(String theUserId)
+    {
+        if(theUserId.isEmpty()) {
+            throw new IllegalArgumentException("userid is not valid");
+        }
         this.mUserId = theUserId;
+    }
+    public void setNoteDesc(String theNoteDesc) {
+        this.mLongDesc = theNoteDesc;
     }
 }
 

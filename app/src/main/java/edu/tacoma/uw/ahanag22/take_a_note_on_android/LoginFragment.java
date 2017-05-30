@@ -33,7 +33,7 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public static String mMessage = "";
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
@@ -89,12 +89,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String userId = userIdText.getText().toString();
-                SignInActivity.muserId= userId;
                 String pwd = pwdText.getText().toString();
                 if (TextUtils.isEmpty(userId)) {
                     Toast.makeText(v.getContext(), "Enter userid"
                             , Toast.LENGTH_SHORT)
                             .show();
+
                     userIdText.requestFocus();
                     return;
                 }
@@ -104,6 +104,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(v.getContext(), "Enter password"
                             , Toast.LENGTH_SHORT)
                             .show();
+
                     pwdText.requestFocus();
                     return;
                 }
@@ -112,10 +113,10 @@ public class LoginFragment extends Fragment {
                             , "Enter password of at least 6 characters"
                             , Toast.LENGTH_SHORT)
                             .show();
+
                     pwdText.requestFocus();
                     return;
                 }
-                SignInActivity.muserId= userId;
                 ((SignInActivity) getActivity()).login(userId, pwd);
 
             }
