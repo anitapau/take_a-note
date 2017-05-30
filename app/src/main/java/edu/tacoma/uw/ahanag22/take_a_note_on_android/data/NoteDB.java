@@ -19,12 +19,20 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.SignInActivity;
 
 public class NoteDB {
     public static final int DB_VERSION = 1;
+    //database name
     public static final String DB_NAME = "Note.db";
+    //note table in the database
     private static final String NOTE_TABLE = "savenote";
-
+    //helper for the database
     private NoteDBHelper mNoteDBHelper;
+    //sqllite database instance
     private SQLiteDatabase mSQLiteDatabase;
 
+    /**
+     * constructor to create note database
+     *
+     * @param context context
+     */
     public NoteDB(Context context) {
         mNoteDBHelper = new NoteDBHelper(
                 context, DB_NAME, null, DB_VERSION);
@@ -32,9 +40,9 @@ public class NoteDB {
     }
 
     /**
-     * Returns the list of courses from the local Course table.
+     * Returns the list of courses from the local list table.
      *
-     * @return list
+     * @return list of notes
      */
     public List<NoteContent> getNotes() {
 
@@ -65,6 +73,7 @@ public class NoteDB {
 
     /**
      * Inserts the course into the local sqlite table. Returns true if successful, false otherwise.
+     *
      * @param id
      * @param longDesc
      * @param userid;
@@ -82,6 +91,7 @@ public class NoteDB {
     public void closeDB() {
         mSQLiteDatabase.close();
     }
+
     /**
      * Delete all the data from the COURSE_TABLE
      */
@@ -92,23 +102,27 @@ public class NoteDB {
 
     /**
      * Updates the row of values for the given row id.
+     *
      * @param id
      * @param longDesc
      * @return false if 0 rows were updated. true otherwise.
      */
-    public boolean updateNoteContent(String id,String userid, String longDesc){
+    public boolean updateNoteContent(String id, String userid, String longDesc) {
         ContentValues contentValues = new ContentValues();
         // contentValues.put("id", id);
         //contentValues.put("userid", userid);
         contentValues.put("longDesc", longDesc);
-        String whereClause = "id='"+id+"'";
-        mSQLiteDatabase.execSQL("UPDATE " + NOTE_TABLE + " SET longDesc='" + longDesc + "' "   + "WHERE id='" + id + "' AND userid='"+ SignInActivity.muserId +"';" );
+        String whereClause = "id='" + id + "'";
+        mSQLiteDatabase.execSQL("UPDATE " + NOTE_TABLE + " SET longDesc='" + longDesc + "' " + "WHERE id='" + id + "' AND userid='" + SignInActivity.muserId + "';");
 //       if(mSQLiteDatabase.update(COURSE_TABLE, contentValues,  null) == 0){
 //           return false;
 //       }
         return true;
     }
 
+    /**
+     * NoteDBhelper class to assist in sqllite connection
+     */
     class NoteDBHelper extends SQLiteOpenHelper {
 
         private final String CREATE_NOTECONTENT_SQL;
@@ -134,8 +148,6 @@ public class NoteDB {
             onCreate(sqLiteDatabase);
         }
     }
-
-
 
 
 }

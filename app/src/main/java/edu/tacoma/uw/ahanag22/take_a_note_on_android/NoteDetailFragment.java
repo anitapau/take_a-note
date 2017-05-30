@@ -22,26 +22,33 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
  * to handle interaction events.
  * Use the {@link NoteDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author anita paudel & ahana ghosh
  */
 public class NoteDetailFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //note id textview
     private TextView mNoteId;
+    //note description
     private TextView mNoteDesc;
+    //note selected
     public final static String Note_ITEM_SELECTED = "note_selected";
 
+    //Note object to be created
     private NoteContent mNote;
-
-    private String mParam1;
-    private String mParam2;
-
+    //Listener for the fragment interaction
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * Default constructor
+     */
     public NoteDetailFragment() {
 
     }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -54,7 +61,7 @@ public class NoteDetailFragment extends Fragment {
     public static NoteDetailFragment newInstance(String param1, String param2) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-       args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -68,13 +75,12 @@ public class NoteDetailFragment extends Fragment {
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
     }
-    public static final String DETAIL_PARAM = "detail_param";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_note_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
         mNoteId = (TextView) view.findViewById(R.id.note_item_id);
         mNoteDesc = (TextView) view.findViewById(R.id.note_desc);
         Button editNoteButton = (Button) view.findViewById(R.id.edit_note_button);
@@ -125,6 +131,7 @@ public class NoteDetailFragment extends Fragment {
             updateView((NoteContent) args.getSerializable(Note_ITEM_SELECTED));
         }
     }
+
     public void updateView(NoteContent noteContent) {
         if (noteContent != null) {
 
@@ -143,6 +150,7 @@ public class NoteDetailFragment extends Fragment {
 
         super.onDestroyView();
     }
+
     @Override
     public void onDetach() {
         super.onDetach();

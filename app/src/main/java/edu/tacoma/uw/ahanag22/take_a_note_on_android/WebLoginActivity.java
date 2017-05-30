@@ -15,8 +15,14 @@ import android.widget.Toast;
 
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
+/**
+ * class to implement web login activity functions
+ */
 public class WebLoginActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
-
+    /**
+     * Create the instance of this activity with the instancestate
+     * @param savedInstanceState instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +30,8 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.note_container, new NoteFragment())
                 .commit();
-       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +45,8 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
 
 
     }
+
+    //List fragment interaction for the notecontent
     @Override
     public void onListFragmentInteraction(NoteContent item) {
 
@@ -52,11 +60,14 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
                 .addToBackStack(null)
                 .commit();
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_logout, menu);
         return true;
     }
+
+    //allows logout functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -23,6 +21,8 @@ import android.widget.Toast;
  * to handle interaction events.
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author anita paudel & ahana ghosh
  */
 public class LoginFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -67,12 +67,16 @@ public class LoginFragment extends Fragment {
         }
 
     }
-
+    /**
+     * Create the layout of this activity with the instancestate
+     * @param savedInstanceState instance state,
+     * @param container container for the view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment and validate the fields
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText userIdText = (EditText) v.findViewById(R.id.userid_edit);
         final EditText pwdText = (EditText) v.findViewById(R.id.pwd_edit);
@@ -116,15 +120,13 @@ public class LoginFragment extends Fragment {
                     pwdText.requestFocus();
                     return;
                 }
-                SignInActivity.muserId= userId;
+                SignInActivity.muserId = userId;
                 ((SignInActivity) getActivity()).login(userId, pwd);
 
             }
         });
         return v;
     }
-
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -162,7 +164,7 @@ public class LoginFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 

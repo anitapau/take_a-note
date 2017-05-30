@@ -17,14 +17,30 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-
+/**
+ * Class that implements the functionality for registering the users
+ *
+ * @author anita paudel & ahana ghosh
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPreferences;
+    /**
+     * Php url to register
+     */
     private String URL_PART1 = "http://takenote.x10host.com/ahana.php?userid=";
+    /**
+     * password to pass in the url
+     */
     private String URL_PART2 = "&password=";
+    /**
+     * email id to pass in the url
+     */
     private String URL_PART3 = "&email=";
 
+    /**
+     * Extends the asynctask to implement webservices
+     */
     public class WebloginTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -61,17 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
-            }
-            else if(result.contains("success")) {
-                //Button b = (Button)findViewById(R.id.login_button);
-                // b.setOnClickListener(new View.OnClickListener() {
-                //@Override
-                //public void onClick(View v) {
+            } else if (result.contains("success")) {
                 Intent i = new Intent(RegisterActivity.this, SignInActivity.class);
                 startActivity(i);
                 finish();
-                // }
-                //});
 
             }
         }
@@ -82,23 +91,22 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button b = (Button)findViewById(R.id.login_button);
+        Button b = (Button) findViewById(R.id.login_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 WebloginTask loginTask = new WebloginTask();
-                EditText userid = (EditText)findViewById(R.id.user_edit);
-                EditText password = (EditText)findViewById(R.id.passwd_edit);
+                EditText userid = (EditText) findViewById(R.id.user_edit);
+                EditText password = (EditText) findViewById(R.id.passwd_edit);
                 EditText email = (EditText) findViewById(R.id.gmail_edit);
-                String finalUrl = URL_PART1+userid.getText()+URL_PART2+password.getText()+URL_PART3+email.getText();
+                String finalUrl = URL_PART1 + userid.getText() + URL_PART2 + password.getText() + URL_PART3 + email.getText();
                 loginTask.execute(finalUrl);
 
             }
 
         });
     }
-
 
 
 }

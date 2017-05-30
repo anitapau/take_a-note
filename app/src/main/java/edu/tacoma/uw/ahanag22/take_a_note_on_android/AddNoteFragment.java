@@ -41,10 +41,21 @@ public class AddNoteFragment extends Fragment {
     private final static String COURSE_ADD_URL
             = "http://takenote.x10host.com/addNote.php?";
 
-
+    /**
+     * Edittext of noteid
+     */
     private EditText mNoteId;
+    /**
+     * Edittext of note description
+     */
     private EditText mNoteDesc;
+    /**
+     * Edittext of userid
+     */
     private String mUserId;
+    /**
+     * Note add listner to add note
+     */
     private NoteAddListner mListener;
 
     public AddNoteFragment() {
@@ -68,14 +79,13 @@ public class AddNoteFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    /**
+     * Create the instance of this activity with the instancestate
+     * @param savedInstanceState instance state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            //mParam1 = getArguments().getString(ARG_PARAM1);
-//            //mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
 
@@ -97,7 +107,7 @@ public class AddNoteFragment extends Fragment {
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(mNoteId.getText().toString())) {
+                if (TextUtils.isEmpty(mNoteId.getText().toString())) {
                     Toast.makeText(v.getContext(), "Enter filename"
                             , Toast.LENGTH_SHORT)
                             .show();
@@ -113,9 +123,13 @@ public class AddNoteFragment extends Fragment {
         return v;
     }
 
-    private AddNoteFragment.OnFragmentInteractionListener mListener1;
 
-
+    /**
+     * Build the url for the note adding
+     *
+     * @param v view
+     * @return string representation of the data
+     */
     private String buildNoteUrl(View v) {
 
         StringBuilder sb = new StringBuilder(COURSE_ADD_URL);
@@ -133,13 +147,13 @@ public class AddNoteFragment extends Fragment {
             sb.append(URLEncoder.encode(courseShortDesc, "UTF-8"));
             Log.i("AddNoteFragment", sb.toString());
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
                     .show();
         }
         return sb.toString();
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * specified {@link OnListFragmentInteractionListener}.
  *
+ * @author anita paudel & ahana ghosh
  */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 

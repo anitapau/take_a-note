@@ -17,12 +17,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
-public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener, LoginFragment.OnFragmentInteractionListener{
+/**
+ * Implements the functions to allow users to signin
+ *
+ * @author anita paudel & ahana ghosh
+ */
+public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener, LoginFragment.OnFragmentInteractionListener {
 
     private SharedPreferences mSharedPreferences;
+    //php url to login with id
     private String URL_PART1 = "http://takenote.x10host.com/login.php?userid=";
+    //password passed in url
     private String URL_PART2 = "&password=";
+    //static variable to save userid
     public static String muserId;
 
     public class WebloginTask extends AsyncTask<String, Void, String> {
@@ -63,9 +70,12 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
 
                 return;
 
-            }
-            else if(result.contains("success")) {
-                
+            } else if (result.contains("success")) {
+                mSharedPreferences
+                        .edit()
+                        .putBoolean(getString(R.string.LOGGEDIN), true)
+                        .commit();
+
                 Intent i = new Intent(SignInActivity.this, WebLoginActivity.class);
                 startActivity(i);
                 finish();
@@ -91,17 +101,19 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
         }
     }
 
+    /**
+     * Allows users to login
+     *
+     * @param userId userid
+     * @param pwd    password to login
+     */
     @Override
     public void login(String userId, String pwd) {
-        this.muserId=userId;
-        mSharedPreferences
-                .edit()
-                .putBoolean(getString(R.string.LOGGEDIN), true)
-                .commit();
+        this.muserId = userId;
 
         WebloginTask loginTask = new WebloginTask();
-        this.muserId=userId;
-        String finalUrl = URL_PART1+userId+URL_PART2+pwd;
+        this.muserId = userId;
+        String finalUrl = URL_PART1 + userId + URL_PART2 + pwd;
         loginTask.execute(finalUrl);
 
 
@@ -113,4 +125,3 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
     }
 
 }
-

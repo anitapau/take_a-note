@@ -23,27 +23,40 @@ import java.net.URL;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteDetailFragment.OnFragmentInteractionListener;
 
+/**
+ * Class to implement all the functionality for taking a note
+ * implements fragment interaction listner for its child fragment
+ *
+ * @author anita paudel & ahana ghosh
+ */
 public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.OnFragmentInteractionListener, AddNoteFragment.NoteAddListner, NoteFragment.OnListFragmentInteractionListener {
+    //Php url to save note
     private String URL_PART1 = "http://takenote.x10host.com/savingNote.php?note=";
+    //note is passed in the url
     private String URL_PART3 = "&note=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_taking);
-        if (findViewById(R.id.fragment_container)!= null) {
+        if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new AddNoteFragment())
                     .commit();
         }
 
-              this.getSupportFragmentManager()
+        this.getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
                 .commit();
     }
 
-
+    /**
+     * Inflate logout menu
+     *
+     * @param menu menu
+     * @return true if set else false
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -69,6 +82,11 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
 
     }
 
+    /**
+     * Add a note to the database
+     *
+     * @param url for creating a note
+     */
     @Override
     public void addNote(String url) {
 
@@ -93,7 +111,9 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
                 .commit();
     }
 
-
+    /**
+     * Class that extends AsyncTask to implement the note taking and saving functionality through the webservices
+     */
     public class NoteSavingTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -130,8 +150,7 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
-            }
-            else if(result.contains("success")) {
+            } else if (result.contains("success")) {
                 Toast.makeText(getApplicationContext(), "Your note has been saved to the database", Toast.LENGTH_LONG).show();
             }
         }

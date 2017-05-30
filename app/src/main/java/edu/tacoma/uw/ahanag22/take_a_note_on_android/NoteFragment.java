@@ -32,10 +32,12 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.data.NoteDB;
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
+ *
+ * @author anita paudel & ahana ghosh
  */
 public class NoteFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String COURSE_URL= "http://takenote.x10host.com/datalist.php?cmd=savenote";
+    private static final String COURSE_URL = "http://takenote.x10host.com/datalist.php?cmd=savenote";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<NoteContent> mNoteList;
@@ -104,11 +106,10 @@ public class NoteFragment extends Fragment {
         if (networkInfo != null && networkInfo.isConnected()) {
             DownloadCoursesTask task = new DownloadCoursesTask();
             task.execute(new String[]{finalUrl});
-        }
-        else {
+        } else {
             Toast.makeText(view.getContext(),
                     "No network connection available. Cannot display notes",
-                    Toast.LENGTH_SHORT) .show();
+                    Toast.LENGTH_SHORT).show();
             if (mNoteDB == null) {
                 mNoteDB = new NoteDB(getActivity());
             }
@@ -123,7 +124,7 @@ public class NoteFragment extends Fragment {
             InputStream inputStream = getActivity().openFileInput(
                     getString(R.string.LOGIN_FILE));
 
-            if ( inputStream != null ) {
+            if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
@@ -186,22 +187,22 @@ public class NoteFragment extends Fragment {
         protected String doInBackground(String... urls) {
             String response = "";
             HttpURLConnection urlConnection = null;
-            for(String url : urls){
-                try{
+            for (String url : urls) {
+                try {
                     URL urlObject = new URL(url);
-                    urlConnection = (HttpURLConnection)urlObject.openConnection();
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
 
-                    InputStream content =  urlConnection.getInputStream();
+                    InputStream content = urlConnection.getInputStream();
 
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
                     String s = "";
-                    while((s = buffer.readLine()) != null){
-                        response +=s;
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     response = "Unable to download the list of notes, Reason: " + e.getMessage();
-                }finally {
-                    if(urlConnection != null)
+                } finally {
+                    if (urlConnection != null)
                         urlConnection.disconnect();
                 }
             }
@@ -239,9 +240,9 @@ public class NoteFragment extends Fragment {
 
 
                 // Also, add to the local database
-                for (int i=0; i<mCourseList.size(); i++) {
+                for (int i = 0; i < mCourseList.size(); i++) {
                     NoteContent course = mCourseList.get(i);
-                    mCourseDB.insertCourse(course.getId(), SignInActivity.muserId,
+                    mCourseDB.insertCourse(course.getId(), course.getUserId(),
                             course.getNoteDesc());
                 }
                 NoteContent mFirstCourse = mCourseList.get(0);
@@ -250,16 +251,6 @@ public class NoteFragment extends Fragment {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }
