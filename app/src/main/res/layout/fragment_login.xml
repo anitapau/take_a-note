@@ -1,5 +1,5 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,31 +7,51 @@
     tools:context="edu.tacoma.uw.ahanag22.take_a_note_on_android.LoginFragment">
 
     <EditText
+
         android:id="@+id/userid_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/userid_hint"
+
         android:inputType="textWebEmailAddress"
-        android:hint="@string/userid_hint" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="110dp"/>
 
     <EditText
         android:id="@+id/pwd_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:hint="@string/pwd_hint"
         android:inputType="textPassword"
-        android:hint="@string/pwd_hint" />
+        android:layout_below="@+id/userid_edit"
+        android:layout_alignLeft="@+id/signin_button"
+        android:layout_alignStart="@+id/signin_button"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/signin_button"
-        android:layout_gravity="end"
-        android:text="@string/login_text" />
+        android:text="@string/login_text"
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/userid_edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="99dp"
+        android:layout_marginEnd="99dp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/register_button"
-        android:layout_gravity="end"
         android:text="@string/register_text"
-        />
+        android:layout_alignBaseline="@+id/signin_button"
+        android:layout_alignBottom="@+id/signin_button"
+        android:layout_toLeftOf="@+id/signin_button"
+         />
 
-</LinearLayout>
+</RelativeLayout>

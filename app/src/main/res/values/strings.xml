@@ -11,7 +11,8 @@
     <string name="take_note_hint">Write a note</string>
     <string name="logout">Logout</string>
     <string name="save">Save</string>
-    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Share                                                                                                                                                 ,,</string>
     <string name="write_Note">Write a note</string>
     <string name="NameOfNote">Name Of File</string>
     <string name="title_activity_web_login">Take-a-note</string>

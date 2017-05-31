@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -25,8 +24,9 @@ import java.net.URL;
 public class SignInActivity extends AppCompatActivity implements LoginFragment.LoginInteractionListener, LoginFragment.OnFragmentInteractionListener {
 
     private SharedPreferences mSharedPreferences;
+
     //php url to login with id
-    private String URL_PART1 = "http://takenote.x10host.com/login.php?userid=";
+    private String URL_PART1 = "http://takenote.x10host.com/login.php?user=";
     //password passed in url
     private String URL_PART2 = "&password=";
     //static variable to save userid
@@ -67,6 +67,10 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
             if (result.contains("fail")) {
                 Toast.makeText(getApplicationContext(), "unable to login either the userid or password is wrong", Toast.LENGTH_LONG)
                         .show();
+                mSharedPreferences
+                        .edit()
+                        .putBoolean(getString(R.string.LOGGEDIN), false)
+                        .commit();
 
                 return;
 
@@ -109,13 +113,10 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
      */
     @Override
     public void login(String userId, String pwd) {
-        this.muserId = userId;
-
         WebloginTask loginTask = new WebloginTask();
         this.muserId = userId;
         String finalUrl = URL_PART1 + userId + URL_PART2 + pwd;
         loginTask.execute(finalUrl);
-
 
     }
 

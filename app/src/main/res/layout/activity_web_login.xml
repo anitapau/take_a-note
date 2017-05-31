@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/note_container"
     tools:context="edu.tacoma.uw.ahanag22.take_a_note_on_android.WebLoginActivity">
 
     <android.support.design.widget.AppBarLayout

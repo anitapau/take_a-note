@@ -1,6 +1,6 @@
 package edu.tacoma.uw.ahanag22.take_a_note_on_android;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.EditNoteFragment;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
 
@@ -35,7 +35,7 @@ public class NoteDetailFragment extends Fragment {
     //note description
     private TextView mNoteDesc;
     //note selected
-    public final static String Note_ITEM_SELECTED = "note_selected";
+    public final static String NOTE_ITEM_SELECTED = "note_selected";
 
     //Note object to be created
     private NoteContent mNote;
@@ -83,22 +83,13 @@ public class NoteDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
         mNoteId = (TextView) view.findViewById(R.id.note_item_id);
         mNoteDesc = (TextView) view.findViewById(R.id.note_desc);
-        Button editNoteButton = (Button) view.findViewById(R.id.edit_note_button);
-        editNoteButton.setOnClickListener(new View.OnClickListener() {
+        Button delete = (Button) view.findViewById(R.id.delete_note_button);
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                EditNoteFragment editNoteFragment = new EditNoteFragment();
-                Bundle args = new Bundle();
-                args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, mNote);
-                editNoteFragment.setArguments(args);
-
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, editNoteFragment)
-                        .addToBackStack(null)
-                        .commit();
+                Toast.makeText(getActivity(), "your note has been deleted", Toast.LENGTH_LONG)
+                        .show();
             }
         });
 
@@ -110,7 +101,17 @@ public class NoteDetailFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Share a note between different applications
+     * @param v view
+     */
+    public void shareNote(View v) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "My note");
+        startActivity(Intent.createChooser(intent, "share via"));
 
+    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -128,7 +129,7 @@ public class NoteDetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-            updateView((NoteContent) args.getSerializable(Note_ITEM_SELECTED));
+            updateView((NoteContent) args.getSerializable(NOTE_ITEM_SELECTED));
         }
     }
 
@@ -136,9 +137,8 @@ public class NoteDetailFragment extends Fragment {
         if (noteContent != null) {
 
             mNote = noteContent;
-            mNoteId.setText(noteContent.getId());
-            mNoteDesc.setText(noteContent.getNoteDesc());
-        }
+            mNoteId.setText(noteContent.getId().toString());
+            mNoteDesc.setText(noteContent.getNoteDesc().toString());       }
     }
 
     @Override

@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -21,7 +18,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
-import edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteDetailFragment.OnFragmentInteractionListener;
 
 /**
  * Class to implement all the functionality for taking a note
@@ -29,8 +25,7 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.NoteDetailFragment.OnFragme
  *
  * @author anita paudel & ahana ghosh
  */
-public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.OnFragmentInteractionListener, AddNoteFragment.NoteAddListner, NoteFragment.OnListFragmentInteractionListener {
-    //Php url to save note
+public class NoteTakingActivity extends AppCompatActivity implements AddNoteFragment.NoteAddListner  {//Php url to save note
     private String URL_PART1 = "http://takenote.x10host.com/savingNote.php?note=";
     //note is passed in the url
     private String URL_PART3 = "&note=";
@@ -39,16 +34,12 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_taking);
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.note_taking_container) != null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new AddNoteFragment())
+                    .add(R.id.note_taking_container, new AddNoteFragment())
                     .commit();
         }
 
-        this.getSupportFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .commit();
     }
 
     /**
@@ -77,11 +68,6 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
     }
 
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
     /**
      * Add a note to the database
      *
@@ -97,19 +83,6 @@ public class NoteTakingActivity extends AppCompatActivity implements AddNoteFrag
 
     }
 
-
-    @Override
-    public void onListFragmentInteraction(NoteContent item) {
-        NoteDetailFragment courseDetailFragment = new NoteDetailFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, item);
-        courseDetailFragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, courseDetailFragment)
-                .addToBackStack(null)
-                .commit();
-    }
 
     /**
      * Class that extends AsyncTask to implement the note taking and saving functionality through the webservices

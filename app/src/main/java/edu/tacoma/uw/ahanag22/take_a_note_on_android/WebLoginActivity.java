@@ -3,7 +3,6 @@ package edu.tacoma.uw.ahanag22.take_a_note_on_android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ShareActionProvider;
+;
 
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
@@ -19,6 +19,8 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
  * class to implement web login activity functions
  */
 public class WebLoginActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
+   //shareAction provider to allow sharing
+    private ShareActionProvider mShareActionProvider;
     /**
      * Create the instance of this activity with the instancestate
      * @param savedInstanceState instance state
@@ -37,9 +39,8 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WebLoginActivity.this, NoteTakingActivity.class);
+                Intent i = new Intent(view.getContext(), NoteTakingActivity.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -52,7 +53,7 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
 
         NoteDetailFragment noteDetailFragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(NoteDetailFragment.Note_ITEM_SELECTED, item);
+        args.putSerializable(NoteDetailFragment.NOTE_ITEM_SELECTED, item);
         noteDetailFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
@@ -78,6 +79,7 @@ public class WebLoginActivity extends AppCompatActivity implements NoteFragment.
         Intent i = new Intent(this, new SignInActivity().getClass());
         startActivity(i);
         finish();
+
         return true;
     }
 

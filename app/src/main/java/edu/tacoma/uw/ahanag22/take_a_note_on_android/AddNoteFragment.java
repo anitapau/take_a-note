@@ -22,7 +22,7 @@ import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.EditNoteFragment;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddNoteFragment.OnFragmentInteractionListener} interface
+ * {@link AddNoteFragment.NoteAddListner} interface
  * to handle interaction events.
  * Use the {@link AddNoteFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -99,10 +99,6 @@ public class AddNoteFragment extends Fragment {
         mUserId = SignInActivity.muserId;
         mNoteDesc = (EditText) v.findViewById(R.id.add_note_desc);
 
-        FloatingActionButton floatingActionButton = (FloatingActionButton)
-                getActivity().findViewById(R.id.fab);
-        floatingActionButton.hide();
-
         Button addCourseButton = (Button) v.findViewById(R.id.save_button);
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,21 +148,6 @@ public class AddNoteFragment extends Fragment {
                     .show();
         }
         return sb.toString();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
 

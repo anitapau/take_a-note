@@ -24,8 +24,8 @@ public class EditNoteFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private final static String NOTE_EDIT_URL
-            = "http://cssgate.insttech.washington.edu/~wujiep/Android/editCourse.php?";
+    private final static String NOTE_DELETE_URL
+            = "http://takenote.x10host.com/delete.php?";;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
