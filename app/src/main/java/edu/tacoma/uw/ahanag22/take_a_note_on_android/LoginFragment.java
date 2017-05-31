@@ -30,12 +30,15 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // param1
     private String mParam1;
+    //param2
     private String mParam2;
+    //message
     public static String mMessage = "";
+    //fragment listner
     private OnFragmentInteractionListener mListener;
-
+    //default constructor
     public LoginFragment() {
 
     }
@@ -120,8 +123,10 @@ public class LoginFragment extends Fragment {
                     pwdText.requestFocus();
                     return;
                 }
-                SignInActivity.muserId = userId;
-                ((SignInActivity) getActivity()).login(userId, pwd);
+                else {
+                    ((SignInActivity) getActivity()).login(userId, pwd);
+                    SignInActivity.muserId = userId;
+                }
 
             }
         });

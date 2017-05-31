@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             if (result.contains("fail")) {
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
+                Toast.makeText(getApplicationContext(), "unable to register", Toast.LENGTH_LONG)
                         .show();
                 return;
             } else if (result.contains("success")) {
@@ -95,14 +95,12 @@ public class RegisterActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 WebloginTask loginTask = new WebloginTask();
                 EditText userid = (EditText) findViewById(R.id.user_edit);
                 EditText password = (EditText) findViewById(R.id.passwd_edit);
                 EditText email = (EditText) findViewById(R.id.gmail_edit);
                 String finalUrl = URL_PART1 + userid.getText() + URL_PART2 + password.getText() + URL_PART3 + email.getText();
                 loginTask.execute(finalUrl);
-
             }
 
         });

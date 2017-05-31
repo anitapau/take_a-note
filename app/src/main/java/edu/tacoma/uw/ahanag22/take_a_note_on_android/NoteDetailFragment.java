@@ -2,6 +2,7 @@ package edu.tacoma.uw.ahanag22.take_a_note_on_android;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,8 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
@@ -30,6 +38,12 @@ public class NoteDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final static String NOTE_DELETE_URL
+            = "http://takenote.x10host.com/delete.php?id=";;
+    /**
+     * email id to pass in the url
+     */
+    private String URL_PART2 = "&userid=";
     //note id textview
     private TextView mNoteId;
     //note description
@@ -83,13 +97,27 @@ public class NoteDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
         mNoteId = (TextView) view.findViewById(R.id.note_item_id);
         mNoteDesc = (TextView) view.findViewById(R.id.note_desc);
+        Button share = (Button) view.findViewById(R.id.edit_note_button);
+        share.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"anitapau@uw.edu"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "this note");
+                intent.putExtra(Intent.EXTRA_TEXT,mNoteDesc.getText().toString());
+                startActivity(Intent.createChooser(intent, "Send via"));
+            }
+        });
         Button delete = (Button) view.findViewById(R.id.delete_note_button);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "your note has been deleted", Toast.LENGTH_LONG)
-                        .show();
+                DeleteTask deleteTask = new DeleteTask();
+                String userid = SignInActivity.muserId;
+                String finalUrl = NOTE_DELETE_URL + mNoteId + URL_PART2 + userid;
+                deleteTask.execute(finalUrl);
             }
         });
 
@@ -99,18 +127,6 @@ public class NoteDetailFragment extends Fragment {
         floatingActionButton.show();
 
         return view;
-    }
-
-    /**
-     * Share a note between different applications
-     * @param v view
-     */
-    public void shareNote(View v) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "My note");
-        startActivity(Intent.createChooser(intent, "share via"));
-
     }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -171,4 +187,52 @@ public class NoteDetailFragment extends Fragment {
 
         void onFragmentInteraction(Uri uri);
     }
+
+    /**
+     * Extends the asynctask to implement delete data
+     */
+    public class DeleteTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            String url = params[0];
+            try {
+                URL urlObject = new URL(url);
+                urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                InputStream content = urlConnection.getInputStream();
+
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                String s = "";
+                while ((s = buffer.readLine()) != null) {
+                    response += s;
+                }
+
+            } catch (Exception e) {
+                response = "Unable to delete. Reason is: "
+                        + e.getMessage();
+            } finally {
+                if (urlConnection != null)
+                    urlConnection.disconnect();
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            if (result.contains("fail")) {
+                Toast.makeText(getActivity(), "could not delete the data either note id or userid is wrong", Toast.LENGTH_LONG)
+                        .show();
+                return;
+            } else if (result.contains("success")) {
+                Toast.makeText(getActivity(), "Your note has been deleted", Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        }
+    }
+
 }

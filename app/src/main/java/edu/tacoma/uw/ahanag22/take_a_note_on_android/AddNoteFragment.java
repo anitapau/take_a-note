@@ -37,7 +37,7 @@ public class AddNoteFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
+    //add note url
     private final static String COURSE_ADD_URL
             = "http://takenote.x10host.com/addNote.php?";
 

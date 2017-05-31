@@ -79,7 +79,6 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
                         .edit()
                         .putBoolean(getString(R.string.LOGGEDIN), true)
                         .commit();
-
                 Intent i = new Intent(SignInActivity.this, WebLoginActivity.class);
                 startActivity(i);
                 finish();
@@ -114,7 +113,6 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
     @Override
     public void login(String userId, String pwd) {
         WebloginTask loginTask = new WebloginTask();
-        this.muserId = userId;
         String finalUrl = URL_PART1 + userId + URL_PART2 + pwd;
         loginTask.execute(finalUrl);
 

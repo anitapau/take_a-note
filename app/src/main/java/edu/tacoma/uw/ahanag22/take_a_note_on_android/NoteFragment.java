@@ -177,7 +177,7 @@ public class NoteFragment extends Fragment {
         void onListFragmentInteraction(NoteContent item);
     }
 
-
+    //download course task which extends the async task to implement webservices
     private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
         //private OnEditFragmentInteractionListener mListener;
         private NoteDB mCourseDB;
