@@ -120,5 +120,8 @@ public class NoteContent implements Serializable {
     public void setNoteDesc(String theNoteDesc) {
         this.mLongDesc = theNoteDesc;
     }
+    public void setmUserId(String theUserid) {
+        this.mUserId = theUserid;
+    }
 }
 

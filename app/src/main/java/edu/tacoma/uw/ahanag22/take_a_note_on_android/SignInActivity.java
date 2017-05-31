@@ -112,6 +112,7 @@ public class SignInActivity extends AppCompatActivity implements LoginFragment.L
      */
     @Override
     public void login(String userId, String pwd) {
+        SignInActivity.muserId=userId;
         WebloginTask loginTask = new WebloginTask();
         String finalUrl = URL_PART1 + userId + URL_PART2 + pwd;
         loginTask.execute(finalUrl);

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.MyProperties;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,11 +125,9 @@ public class LoginFragment extends Fragment {
                     pwdText.requestFocus();
                     return;
                 }
-                else {
-                    ((SignInActivity) getActivity()).login(userId, pwd);
-                    SignInActivity.muserId = userId;
-                }
-
+                SignInActivity.muserId = userId;
+                MyProperties.userid = userId;
+                ((SignInActivity) getActivity()).login(userId, pwd);
             }
         });
         return v;

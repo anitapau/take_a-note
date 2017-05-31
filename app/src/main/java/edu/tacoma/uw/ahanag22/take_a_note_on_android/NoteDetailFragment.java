@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.MyProperties;
 import edu.tacoma.uw.ahanag22.take_a_note_on_android.Note.NoteContent;
 
 
@@ -46,6 +48,8 @@ public class NoteDetailFragment extends Fragment {
     private String URL_PART2 = "&userid=";
     //note id textview
     private TextView mNoteId;
+    //user  id textview
+    private TextView mUserId;
     //note description
     private TextView mNoteDesc;
     //note selected
@@ -101,12 +105,15 @@ public class NoteDetailFragment extends Fragment {
         share.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"anitapau@uw.edu"});
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:" + "anitapau@uw.edu"));
                 intent.putExtra(Intent.EXTRA_SUBJECT, "this note");
                 intent.putExtra(Intent.EXTRA_TEXT,mNoteDesc.getText().toString());
-                startActivity(Intent.createChooser(intent, "Send via"));
+                try {
+                    startActivity(Intent.createChooser(intent, "Send email using..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity(), "No email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         Button delete = (Button) view.findViewById(R.id.delete_note_button);
@@ -116,7 +123,7 @@ public class NoteDetailFragment extends Fragment {
 
                 DeleteTask deleteTask = new DeleteTask();
                 String userid = SignInActivity.muserId;
-                String finalUrl = NOTE_DELETE_URL + mNoteId + URL_PART2 + userid;
+                String finalUrl = NOTE_DELETE_URL + mNoteId.getText().toString() + URL_PART2 + userid;
                 deleteTask.execute(finalUrl);
             }
         });
@@ -154,6 +161,7 @@ public class NoteDetailFragment extends Fragment {
 
             mNote = noteContent;
             mNoteId.setText(noteContent.getId().toString());
+           // mUserId.setText(noteContent.getUserId());
             mNoteDesc.setText(noteContent.getNoteDesc().toString());       }
     }
 
