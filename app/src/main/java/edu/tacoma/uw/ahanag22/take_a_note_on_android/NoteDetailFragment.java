@@ -41,11 +41,16 @@ public class NoteDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private final static String NOTE_DELETE_URL
-            = "http://takenote.x10host.com/delete.php?id=";;
+            = "http://takenote.x10host.com/delete.php?id=";
+    //update url
+    private final static String NOTE_UPDATE_URL
+            = "http://takenote.x10host.com/editNote.php?id=";
     /**
      * email id to pass in the url
      */
     private String URL_PART2 = "&userid=";
+    //long descrption url
+    private String URL_PART3 = "&longDesc=";
     //note id textview
     private TextView mNoteId;
     //user  id textview
@@ -125,6 +130,14 @@ public class NoteDetailFragment extends Fragment {
                 String userid = SignInActivity.muserId;
                 String finalUrl = NOTE_DELETE_URL + mNoteId.getText().toString() + URL_PART2 + userid;
                 deleteTask.execute(finalUrl);
+            }
+        });
+        Button update = (Button) view.findViewById(R.id.updateButton);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getActivity(), "Not yet implemented.", Toast.LENGTH_SHORT).show();
             }
         });
 
